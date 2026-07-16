@@ -1,15 +1,17 @@
 from pydantic import BaseModel
 
 class StudentCreate(BaseModel):
-    name: str
+    Name: str
+    Reg_ID: str
 
 class StudentResponse(BaseModel):
-    id: int
-    name: str
-    behavior_score: int
+    Serial_no: int
+    Name: str
+    Reg_ID: str
+    Behavior_Score: int
 
     class Config:
         from_attributes = True
 
 class StudentUpdate(BaseModel):
-    behavior_score: int
+    Behavior_Score: int

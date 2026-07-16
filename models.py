@@ -4,6 +4,7 @@ from database import Base
 class Student(Base):
     __tablename__ = "students"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    behavior_score = Column(Integer, default=100)
+    Serial_no = Column(Integer, primary_key=True, index=True)
+    Name = Column(String, index=True)
+    Reg_ID = Column(String, unique=True, index=True)
+    Behavior_Score = Column(Integer, default=100)

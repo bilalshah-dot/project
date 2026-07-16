@@ -9,7 +9,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# This is a helper function to open and close the database connection
 def get_db():
     db = SessionLocal()
     try:
@@ -25,26 +24,23 @@ def get_students(db: Session = Depends(get_db)):
 # ENDPOINT 2: Add a new student
 @app.post("/students/", response_model=schemas.StudentResponse)
 def create_student(student: schemas.StudentCreate, db: Session = Depends(get_db)):
-    # Create the new student object
-    new_student = models.Student(name=student.name)
-    # Add it to the database
+    # Notice the Capital variables here
+    new_student = models.Student(Name=student.Name, Reg_ID=student.Reg_ID)
     db.add(new_student)
     db.commit()
     db.refresh(new_student)
-    
     return new_student
+
 # ENDPOINT 3: Update a student's behavior score
-@app.patch("/students/{student_id}", response_model=schemas.StudentResponse)
-def update_score(student_id: int, score_update: schemas.StudentUpdate, db: Session = Depends(get_db)):
-    # Find the specific student
-    student = db.query(models.Student).filter(models.Student.id == student_id).first()
+@app.patch("/students/{Serial_no}", response_model=schemas.StudentResponse)
+def update_score(Serial_no: int, score_update: schemas.StudentUpdate, db: Session = Depends(get_db)):
+    # Notice the Capital variables here
+    student = db.query(models.Student).filter(models.Student.Serial_no == Serial_no).first()
     
-    # If the student doesn't exist, throw an error
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
         
-    # Update the score and save to database
-    student.behavior_score = score_update.behavior_score
+    student.Behavior_Score = score_update.Behavior_Score
     db.commit()
     db.refresh(student)
     return student

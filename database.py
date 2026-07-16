@@ -1,9 +1,14 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-# We will replace this string with your actual database credentials soon
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:230607@localhost/behavioral_db"
+# Load the secrets from the .env file
+load_dotenv()
+
+# Fetch the URL securely
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
